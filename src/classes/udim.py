@@ -30,12 +30,6 @@ class UDim:
 
     @property
     def calc(self) -> Vector2:
-        # Returns old value due to not detecting display resolution change
-        # if self._calc is None:
-        #     # self._calc = Vector2(self._scale.x * config.APP_WIDTH, self._scale.y * config.APP_HEIGHT) + self._offset
-        #     self._calc = (Vector2(config.display_resolution.x * self._scale.x,
-        #                   config.display_resolution.y * self._scale.y)) + self._offset
-        # return self._calc
         return (Vector2(config.display_resolution.x * self._scale.x,
                         config.display_resolution.y * self._scale.y)) + self._offset
 

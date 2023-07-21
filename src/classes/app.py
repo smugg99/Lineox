@@ -29,7 +29,15 @@ class App():
         self.surface = pygame.display.set_mode(
             (resolution.x, resolution.y), pygame.HWSURFACE | pygame.DOUBLEBUF | pygame.RESIZABLE)
 
-        config.display_resolution = resolution
+        config.recalculate_display_globals(resolution)
+        
+        for key, page in self.interface.pages.items():
+            if not page.is_visible:
+                continue
+
+            for widget in page.widgets:
+                widget.update_rect()
+                widget.update()
 
     def on_init(self):
         pygame.init()
@@ -42,7 +50,9 @@ class App():
         if event.type == pygame.QUIT:
             self._is_running = False
         elif event.type == pygame.VIDEORESIZE:
-            config.display_resolution = Vector2(event.w, event.h)
+            config.recalculate_display_globals(Vector2(event.w, event.h))
+            print("resize")
+            
 
         for key, page in self.interface.pages.items():
             if not page.is_visible:
@@ -50,7 +60,6 @@ class App():
 
             for widget in page.widgets:
                 widget.handle_events(event)
-                widget.update_rect()
 
     def on_loop(self):
         pass

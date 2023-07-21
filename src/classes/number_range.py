@@ -25,6 +25,7 @@ class NumberRange:
             number = max(number, self.min_value)
         if self.max_value is not None:
             number = min(number, self.max_value)
+
         return number
 
     def __repr__(self):

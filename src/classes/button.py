@@ -58,8 +58,6 @@ class Button(Label):
                         callback()
             else:
                 self.is_clicked = False
-
-            print(self.rect.collidepoint(event.pos))
         elif event.type == pygame.MOUSEBUTTONUP:
             if event.button == 1:
                 self.is_clicked = False

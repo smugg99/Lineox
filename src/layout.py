@@ -22,7 +22,7 @@ main_page: Page = Page()
 
 title_label1: Label = Label(UDim.from_scale(0.5, 0.1), UDim.from_scale(
     1, 0.15), anchor=Vector2(0.5, 0.5),
-    default_style=LabelStyle("Lineox", Color(255, 0, 0), text_font=FontsEnum.DEFAULT, text_size=32, text_scaled=False, background_color=Color(255, 255, 255)))
+    default_style=LabelStyle("Lineox", Color(255, 0, 0), text_font=FontsEnum.DEFAULT, text_size=32, background_color=Color(255, 255, 255)))
 
 title_label2: Label = Label(UDim.from_scale(0.5, 0.3), UDim.from_scale(
     1, 0.15), anchor=Vector2(0.5, 0.5),
@@ -30,16 +30,17 @@ title_label2: Label = Label(UDim.from_scale(0.5, 0.3), UDim.from_scale(
 
 title_label3: Label = Label(UDim.from_scale(0.5, 0.5), UDim.from_scale(
     1, 0.15), anchor=Vector2(0.5, 0.5),
-    default_style=LabelStyle("Lineox", Color(255, 0, 0), text_font=FontsEnum.VT323, text_size=NumberRange(16, 96), background_color=Color(255, 255, 255)))
+    default_style=LabelStyle("Lineox", Color(255, 0, 0), text_font=FontsEnum.VT323, text_size=NumberRange(16, 126), background_color=Color(255, 255, 255)))
 
+# TO-DO: It doesn't work because max value of number range needs to be calculated
 title_label4: Label = Label(UDim.from_scale(0.5, 0.7), UDim.from_scale(
     1, 0.15), anchor=Vector2(0.5, 0.5),
-    default_style=LabelStyle("Lineox", Color(255, 0, 0), text_font=FontsEnum.LINERAMA, text_size=NumberRange(16, 96), background_color=Color(255, 255, 255)))
+    default_style=LabelStyle("Lineox", Color(255, 0, 0), text_font=FontsEnum.LINERAMA, text_size=NumberRange(32, None), background_color=Color(255, 255, 255)))
 
 
 play_button: Button = Button(UDim.from_scale(
     0.5, 1), UDim.from_scale(0.4, 0.15), anchor=Vector2(0.5, 1),
-    default_style=ButtonStyle("Play", Color(255, 255, 255), text_scaled=True, background_color=Color(0, 255, 0)))
+    default_style=LabelStyle("Play", Color(255, 255, 255), background_color=Color(0, 255, 0)))
 
 main_page.add_widget(title_label1)
 main_page.add_widget(title_label2)
