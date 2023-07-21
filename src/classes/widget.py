@@ -12,7 +12,7 @@ class Widget:
         self.anchor: Vector2 = anchor
         self.rect: Rect = None
 
-        # This shit below has to be recreated after changing resolution because it operates on the calculated values of UDim
+        # Can't use the unique update method here because it has not been initialized yet
         self.update_rect()
 
     def update_rect(self):
@@ -32,6 +32,12 @@ class Widget:
     def handle_events(self, event: Event):
         if event.type == pygame.VIDEORESIZE:
             self.update_rect()
+            self.update()
+
+    # Unique update function for each subclass
+    def update(self):
+        raise NotImplementedError(
+            "Subclasses must implement the update() method")
 
     def draw(self):
         raise NotImplementedError(
