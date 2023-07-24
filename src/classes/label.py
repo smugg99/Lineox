@@ -47,19 +47,22 @@ class Label(Widget):
                 relative_font_size = self.default_style.text_size
             else:
                 def new_temp_font_size(font_size: int) -> Tuple[int, int]:
-                    temp_font: Font = Font(
-                        self.current_style.text_font, font_size)
-                    return temp_font.size(self.current_style.text)
+                    return Font(self.current_style.text_font, font_size).size(self.current_style.text)
 
-                cal_font_size: int = 0
-                font_width, font_height = new_temp_font_size(cal_font_size)
+                def get_optimized_font_size() -> int:
+                    font_size = 1
 
-                while font_height < self.rect.height and font_width < self.rect.height:
-                    font_width, font_height = new_temp_font_size(cal_font_size)
-                    cal_font_size += 1
+                    while True:
+                        font_width, font_height = new_temp_font_size(font_size)
+                        if font_width > self.rect.width or font_height > self.rect.height:
+                            break
+                        font_size += 1
+
+                    # The last font_size was the one that exceeded the rectangle
+                    return font_size - 1 if font_size > 1 else 1
 
                 # Make the font size be constrained to the rect size
-                relative_font_size = int(cal_font_size)
+                relative_font_size = get_optimized_font_size()
         else:
             # Make the font size be constrained to the number range
             fit_value: int = self.default_style.text_size.max_value or self.default_style.text_size.min_value
