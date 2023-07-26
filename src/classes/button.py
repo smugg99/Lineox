@@ -12,8 +12,11 @@ from classes.udim import UDim
 from classes.label import Label, LabelStyle
 
 
+# ================# Classes #================ #
+
+
 class ButtonStyle(LabelStyle):
-    def __init__(self, text: str, text_color: Color, text_font: Optional[FontsEnum] = FontsEnum.DEFAULT, text_size: Optional[Union[int, NumberRange]] = 16, text_scaled: Optional[bool] = False, background_color: Optional[Color] = Color(0, 0, 0, 0)):
+    def __init__(self, text: str, text_color: Color, text_font: Optional[FontsEnum] = FontsEnum.DEFAULT, text_size: Optional[Union[int, NumberRange]] = 16, text_scaled: Optional[bool] = False, background_color: Optional[Color] = Color(0, 0, 0, 255)):
         super().__init__(text, text_color, text_font,
                          text_size, text_scaled, background_color)
 
@@ -79,3 +82,6 @@ class Button(Label):
 
     def add_callback(self, callback: Callable):
         self.event_callbacks.append(callback)
+
+
+# ================# Classes #================ #

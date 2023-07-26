@@ -4,6 +4,9 @@ from typing import Optional
 from pygame import Vector2
 
 
+# ================# Classes #================ #
+
+
 class UDim:
     def __init__(self, scale: Vector2, offset: Optional[Vector2] = Vector2(0, 0)):
         self._scale: Vector2 = scale
@@ -43,3 +46,6 @@ class UDim:
     @classmethod
     def from_offset(cls, x: float, y: float):
         return cls(Vector2(0, 0), Vector2(x, y))
+
+
+# ================# Classes #================ #

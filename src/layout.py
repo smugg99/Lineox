@@ -22,20 +22,11 @@ main_page: Page = Page()
 
 title_label1: Label = Label(UDim.from_scale(0.5, 0.1), UDim.from_scale(
     1, 0.15), anchor=Vector2(0.5, 0.5),
-    default_style=LabelStyle("Lineox", Color(255, 0, 0), text_font=FontsEnum.DEFAULT, text_size=32, background_color=Color(255, 255, 255)))
+    default_style=LabelStyle("Lineox", Color(255, 0, 0), text_font=FontsEnum.DEFAULT, text_scaled=True, background_color=Color(255, 255, 255)))
 
-title_label2: Label = Label(UDim.from_scale(0.5, 0.3), UDim.from_scale(
-    1, 0.15), anchor=Vector2(0.5, 0.5),
-    default_style=LabelStyle("Lineox", Color(255, 0, 0), text_font=FontsEnum.ROBOTO, text_scaled=True, background_color=Color(255, 255, 255)))
-
-title_label3: Label = Label(UDim.from_scale(0.5, 0.5), UDim.from_scale(
-    1, 0.15), anchor=Vector2(0.5, 0.5),
-    default_style=LabelStyle("Lineox", Color(255, 0, 0), text_font=FontsEnum.VT323, text_size=NumberRange(16, 126), background_color=Color(255, 255, 255)))
-
-# TO-DO: It doesn't work because max value of number range needs to be calculated
-title_label4: Label = Label(UDim.from_scale(0.5, 0.7), UDim.from_scale(
-    1, 0.15), anchor=Vector2(0.5, 0.5),
-    default_style=LabelStyle("Lineox", Color(255, 0, 0), text_font=FontsEnum.LINERAMA, text_size=NumberRange(32, None), background_color=Color(255, 255, 255)))
+description_label1: Label = Label(UDim.from_scale(0.5, 0.5), UDim.from_scale(
+    0.75, 0.55), anchor=Vector2(0.5, 0.5),
+    default_style=LabelStyle("!START! Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed tincidunt,\nipsum eu posuere pulvinar, tortor ex varius odio,\nvitae varius purus eros a urna. Sed felis lectus,\nvestibulum quis consectetur sed, hendrerit nec sapien.\nSed ante dolor, suscipit sit amet molestie sed, vulputate sit amet. !STOP!", Color(255, 0, 0), text_wrapped=True, text_font=FontsEnum.DEFAULT, text_scaled=True, background_color=Color(255, 255, 255)))
 
 
 play_button: Button = Button(UDim.from_scale(
@@ -43,9 +34,7 @@ play_button: Button = Button(UDim.from_scale(
     default_style=LabelStyle("Play", Color(255, 255, 255), background_color=Color(0, 255, 0)))
 
 main_page.add_widget(title_label1)
-main_page.add_widget(title_label2)
-main_page.add_widget(title_label3)
-main_page.add_widget(title_label4)
+main_page.add_widget(description_label1)
 
 main_page.add_widget(play_button)
 

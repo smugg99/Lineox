@@ -13,9 +13,14 @@ from classes.app import App
 global app
 app = App(layout.interface)
 
+# ================# Functions #================ #
+
 
 async def main():
     app.on_execute()
+
+
+# ================# Functions #================ #
 
 if __name__ == "__main__":
     asyncio.run(main())

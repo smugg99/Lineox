@@ -1,6 +1,9 @@
 from typing import Optional
 
 
+# ================# Classes #================ #
+
+
 class NumberRange:
     def __init__(self, min_value: Optional[float] = None, max_value: Optional[float] = None):
         if min_value is not None and not isinstance(min_value, (int, float)):
@@ -30,3 +33,6 @@ class NumberRange:
 
     def __repr__(self):
         return f"NumberRange({self.min_value}, {self.max_value})"
+
+
+# ================# Classes #================ #

@@ -3,6 +3,9 @@ from typing import Dict, List
 from classes.page import Page
 
 
+# ================# Classes #================ #
+
+
 class Interface:
     def __init__(self):
         self.pages: Dict[str, Page] = {}
@@ -16,3 +19,6 @@ class Interface:
     def remove_page(self, key: str):
         if key in self.pages:
             del (self.pages[key])
+
+
+# ================# Classes #================ #

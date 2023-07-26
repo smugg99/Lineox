@@ -8,6 +8,9 @@ from typing import List, Optional
 from layout import Interface
 
 
+# ================# Classes #================ #
+
+
 class App():
     _instance = None
 
@@ -30,7 +33,7 @@ class App():
             (resolution.x, resolution.y), pygame.HWSURFACE | pygame.DOUBLEBUF | pygame.RESIZABLE)
 
         config.recalculate_display_globals(resolution)
-        
+
         for key, page in self.interface.pages.items():
             if not page.is_visible:
                 continue
@@ -50,9 +53,15 @@ class App():
         if event.type == pygame.QUIT:
             self._is_running = False
         elif event.type == pygame.VIDEORESIZE:
+            # new_width: int = max(config.min_display_resolution.x, min(
+            #     event.w, config.max_display_resolution.x))
+            # new_height: int = max(config.min_display_resolution.y, min(
+            #     event.h, config.max_display_resolution.y))
+
+            # self.refresh_display(Vector2(new_width, new_height))
+            # config.recalculate_display_globals(Vector2(new_width, new_height))
+
             config.recalculate_display_globals(Vector2(event.w, event.h))
-            print("resize")
-            
 
         for key, page in self.interface.pages.items():
             if not page.is_visible:
@@ -92,3 +101,6 @@ class App():
 
             self.clock.tick(60)
         self.on_cleanup()
+
+
+# ================# Classes #================ #

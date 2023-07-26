@@ -2,6 +2,9 @@ from typing import Dict, List
 from classes.widget import Widget
 
 
+# ================# Classes #================ #
+
+
 class Page:
     def __init__(self):
         self.widgets: List[Widget] = []
@@ -44,3 +47,6 @@ class Page:
     def remove_page(self, key: str):
         if key in self.pages:
             del (self.pages[key])
+
+
+# ================# Classes #================ #
