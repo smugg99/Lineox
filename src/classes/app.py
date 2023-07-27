@@ -20,27 +20,26 @@ class App():
             cls._instance._initialized = False
         return cls._instance
 
-    def __init__(self, interface: Interface):
+    def __init__(self):
         self._is_running: bool = True
 
         self.clock: Clock = Clock()
         self.surface: Surface = None
-
-        self.interface = interface
+        self.interface: Interface = None
 
     def refresh_display(self, resolution: Optional[Vector2] = config.display_resolution):
         self.surface = pygame.display.set_mode(
-            (resolution.x, resolution.y), pygame.HWSURFACE | pygame.DOUBLEBUF | pygame.RESIZABLE)
+            (resolution.x, resolution.y), pygame.HWSURFACE | pygame.RESIZABLE)
 
         config.recalculate_display_globals(resolution)
 
-        for key, page in self.interface.pages.items():
-            if not page.is_visible:
-                continue
+        if self.interface:
+            for _, page in self.interface.pages.items():
+                if not page.is_visible:
+                    continue
 
-            for widget in page.widgets:
-                widget.update_rect()
-                widget.update()
+                for widget in page.widgets:
+                    widget.update()
 
     def on_init(self):
         pygame.init()
@@ -53,22 +52,15 @@ class App():
         if event.type == pygame.QUIT:
             self._is_running = False
         elif event.type == pygame.VIDEORESIZE:
-            # new_width: int = max(config.min_display_resolution.x, min(
-            #     event.w, config.max_display_resolution.x))
-            # new_height: int = max(config.min_display_resolution.y, min(
-            #     event.h, config.max_display_resolution.y))
-
-            # self.refresh_display(Vector2(new_width, new_height))
-            # config.recalculate_display_globals(Vector2(new_width, new_height))
-
             config.recalculate_display_globals(Vector2(event.w, event.h))
 
-        for key, page in self.interface.pages.items():
-            if not page.is_visible:
-                continue
+        if self.interface:
+            for _, page in self.interface.pages.items():
+                if not page.is_visible:
+                    continue
 
-            for widget in page.widgets:
-                widget.handle_events(event)
+                for widget in page.widgets:
+                    widget.handle_events(event)
 
     def on_loop(self):
         pass
@@ -76,12 +68,13 @@ class App():
     def on_render(self):
         self.surface.fill((0, 0, 0))
 
-        for key, page in self.interface.pages.items():
-            if not page.is_visible:
-                continue
+        if self.interface:
+            for _, page in self.interface.pages.items():
+                if not page.is_visible:
+                    continue
 
-            for widget in page.widgets:
-                widget.draw(self.surface)
+                for widget in page.widgets:
+                    widget.draw(self.surface)
 
         pygame.display.flip()
 
@@ -92,6 +85,8 @@ class App():
         if self.on_init() == False:
             self._is_running = False
 
+        _updated: bool = False
+
         while (self._is_running):
             for event in pygame.event.get():
                 self.on_event(event)
@@ -99,7 +94,19 @@ class App():
             self.on_loop()
             self.on_render()
 
-            self.clock.tick(60)
+            self.clock.tick(config.max_fps)
+
+            if not _updated:
+                if self.interface:
+                    for _, page in self.interface.pages.items():
+                        if not page.is_visible:
+                            continue
+
+                        for widget in page.widgets:
+                            widget.update()
+
+                print("First update")
+                _updated = True
         self.on_cleanup()
 
 

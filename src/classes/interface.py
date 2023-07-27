@@ -15,6 +15,9 @@ class Interface:
             return
 
         self.pages[key] = page
+        
+        for widget in page.widgets:
+            widget.update()
 
     def remove_page(self, key: str):
         if key in self.pages:

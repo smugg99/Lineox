@@ -18,7 +18,7 @@ from classes.label import Label, LabelStyle
 class ButtonStyle(LabelStyle):
     def __init__(self, text: str, text_color: Color, text_font: Optional[FontsEnum] = FontsEnum.DEFAULT, text_size: Optional[Union[int, NumberRange]] = 16, text_scaled: Optional[bool] = False, background_color: Optional[Color] = Color(0, 0, 0, 255)):
         super().__init__(text, text_color, text_font,
-                         text_size, text_scaled, background_color)
+                         text_size, text_scaled, False, background_color)
 
 
 class Button(Label):
@@ -66,7 +66,7 @@ class Button(Label):
                 self.is_clicked = False
 
     def update(self):
-        pass
+        super().update()
 
     def draw(self, surface: Surface):
         # Adjust button style based on its state

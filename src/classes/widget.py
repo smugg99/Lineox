@@ -16,6 +16,8 @@ class Widget:
         self.anchor: Vector2 = anchor
         self.rect: Rect = None
 
+        self._updated: bool = False
+
         # Can't use the unique update method here because it has not been initialized yet
         self.update_rect()
 
@@ -40,13 +42,12 @@ class Widget:
 
     def handle_events(self, event: Event):
         if event.type == pygame.VIDEORESIZE:
-            self.update_rect()
             self.update()
 
     # Unique update function for each subclass
     def update(self):
-        raise NotImplementedError(
-            "Subclasses must implement the update() method")
+        self.update_rect()
+        self._updated = True
 
     def draw(self):
         raise NotImplementedError(

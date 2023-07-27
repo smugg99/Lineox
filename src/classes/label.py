@@ -11,7 +11,7 @@ from classes.number_range import NumberRange
 from classes.udim import UDim
 from classes.widget import Widget
 
-pygame.init()
+pygame.font.init()
 
 
 # ================# Classes #================ #
@@ -45,6 +45,8 @@ class Label(Widget):
         super().handle_events(event)
 
     def update(self):
+        super().update()
+
         relative_font_size: int = None
 
         if self.current_style.text_wrapped:
@@ -61,8 +63,8 @@ class Label(Widget):
                 total_lines_height: int = 0
                 current_line: List[str] = []
 
-                for i, word in enumerate(words):
-                    text_width, text_height = temp_font.size(word + " ")
+                for word in words:
+                    text_width, _ = temp_font.size(word + " ")
 
                     if current_line_width + text_width <= self.rect.width:
                         current_line.append(word)
@@ -78,10 +80,9 @@ class Label(Widget):
                     if word == words[len(words) - 1] and current_line:
                         lines.append(" ".join(current_line))
 
-                total_lines_height = len(lines) * font_size
-
-                print(total_lines_height,
-                      (self.rect.width, self.rect.height))
+                # Add artificial line into the calculation to compensate for the algorithm innacuracies
+                total_lines_height = (len(lines) + 0.5) * \
+                    (temp_font.get_linesize())
 
                 return lines, total_lines_height
 
@@ -91,12 +92,10 @@ class Label(Widget):
                 while True:
                     lines, total_lines_height = split_text(font_size)
 
-                    if total_lines_height >= self.rect.height:
-                        print("Out of bounds")
+                    if total_lines_height > self.rect.height:
                         return font_size - 1 if font_size > 1 else 1, lines
-                    else:
-                        print("ok")
-                        font_size += 1
+
+                    font_size += 1
 
             # ================# Local Functions #================ #
 

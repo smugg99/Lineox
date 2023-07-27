@@ -22,6 +22,9 @@ global min_display_resolution, max_display_resolution
 min_display_resolution: Vector2 = Vector2(480, 640)
 max_display_resolution: Vector2 = Vector2(960, 1280)
 
+global max_fps
+max_fps = 60
+
 # ================# Functions #================ #
 
 
