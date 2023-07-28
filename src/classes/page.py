@@ -1,5 +1,6 @@
 from typing import Dict, List
-from classes.widget import Widget
+
+from classes.widgets.base_widget import BaseWidget
 
 
 # ================# Classes #================ #
@@ -7,7 +8,7 @@ from classes.widget import Widget
 
 class Page:
     def __init__(self):
-        self.widgets: List[Widget] = []
+        self.widgets: List[BaseWidget] = []
         self.pages: Dict[str, Page] = []
         self.is_visible: bool = False
 
@@ -26,7 +27,7 @@ class Page:
         print("Hiding page")
         self.is_visible = False
 
-    def add_widget(self, widget: Widget):
+    def add_widget(self, widget: BaseWidget):
         if widget in self.widgets:
             return
 
@@ -34,7 +35,7 @@ class Page:
 
         self.widgets.append(widget)
 
-    def remove_widget(self, widget: Widget):
+    def remove_widget(self, widget: BaseWidget):
         if widget not in self.widgets:
             return
 

@@ -1,7 +1,8 @@
-from pygame import Vector2, Color
 from typing import Dict, List
-from classes.page import Page
 
+from pygame import Color, Vector2
+
+from classes.page import Page
 
 # ================# Classes #================ #
 

@@ -1,14 +1,27 @@
-import pygame
+from enum import Enum
 
+import pygame
 from pygame import Rect, Vector2
 from pygame.event import Event
-from classes.udim import UDim
+
+from classes.datatypes.udim import UDim
+
+
+# ================# Enums #================ #
+
+class FontsEnum(Enum):
+    DEFAULT: str = "fonts/Ubuntu-R.ttf"
+    VT323: str = "fonts/VT323-Regular.ttf"
+    ROBOTO: str = "fonts/Roboto-Regular.ttf"
+    LINERAMA: str = "fonts/Linerama-Regular.ttf"
+
+# ================# Enums #================ #
 
 
 # ================# Classes #================ #
 
 
-class Widget:
+class BaseWidget:
     def __init__(self, position: UDim, size: UDim, anchor: Vector2 = Vector2(0, 0)):
         self.position: UDim = position
 

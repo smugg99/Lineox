@@ -1,7 +1,8 @@
-import config
-
 from typing import Optional
+
 from pygame import Vector2
+
+import config
 
 
 # ================# Classes #================ #

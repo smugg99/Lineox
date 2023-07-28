@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 
 import layout
-
 from classes.app import App
 
 global app

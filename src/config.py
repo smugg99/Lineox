@@ -1,10 +1,10 @@
-from pygame import Vector2
 from enum import Enum
 
+from pygame import Vector2
 
 # ================# Enums #================ #
 
-class FontsEnum():
+class FontsEnum(Enum):
     DEFAULT: str = "fonts/Ubuntu-R.ttf"
     VT323: str = "fonts/VT323-Regular.ttf"
     ROBOTO: str = "fonts/Roboto-Regular.ttf"

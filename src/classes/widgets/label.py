@@ -1,15 +1,16 @@
-import pygame
-import config
 import copy
+from typing import Callable, Dict, List, Optional, Tuple, Union
 
-from config import FontsEnum
-from pygame import Vector2, Color, Surface, Rect
+import pygame
+from pygame import Color, Rect, Surface, Vector2
 from pygame.event import Event
-from pygame.font import Font, SysFont
-from typing import Dict, Callable, List, Union, Optional, Tuple
-from classes.number_range import NumberRange
-from classes.udim import UDim
-from classes.widget import Widget
+from pygame.font import Font
+
+import config
+from classes.datatypes.number_range import NumberRange
+from classes.datatypes.udim import UDim
+from classes.widgets.base_widget import BaseWidget
+from config import FontsEnum
 
 pygame.font.init()
 
@@ -28,7 +29,7 @@ class LabelStyle:
         self.background_color: Color = background_color
 
 
-class Label(Widget):
+class Label(BaseWidget):
     def __init__(self, position: UDim, size: UDim, default_style: LabelStyle, anchor: Optional[Vector2] = Vector2(0, 0)):
         super().__init__(position, size, anchor)
 
@@ -60,14 +61,17 @@ class Label(Widget):
                 words: List[str] = self.current_style.text.split()
 
                 current_line_width: int = 0
-                total_lines_height: int = 0
+                current_lines_height: int = 0
+
                 current_line: List[str] = []
+                line_size: int = temp_font.get_linesize()
 
                 for word in words:
-                    text_width, _ = temp_font.size(word + " ")
+                    text_width, text_height = temp_font.size(word + " ")
 
                     if current_line_width + text_width <= self.rect.width:
                         current_line.append(word)
+
                         current_line_width += text_width
                     else:
                         lines.append(" ".join(current_line))
@@ -76,17 +80,18 @@ class Label(Widget):
                         current_line = [word]
 
                         current_line_width = text_width
+                        current_lines_height += line_size
 
                     if word == words[len(words) - 1] and current_line:
                         lines.append(" ".join(current_line))
 
                 # Add artificial line into the calculation to compensate for the algorithm innacuracies
-                total_lines_height = (len(lines) + 0.5) * \
+                safe_total_lines_height = (len(lines) + 0.5) * \
                     (temp_font.get_linesize())
 
-                return lines, total_lines_height
+                return lines, safe_total_lines_height
 
-            def get_optimised_font_size_and_lines() -> int:
+            def get_optimised_font_size_and_lines() -> Tuple[int, List[str]]:
                 font_size = 1
 
                 while True:
@@ -99,16 +104,31 @@ class Label(Widget):
 
             # ================# Local Functions #================ #
 
-            font_size, text_lines = get_optimised_font_size_and_lines()
+            if not isinstance(self.current_style.text_size, NumberRange):
+                if not self.current_style.text_scaled:
+                    # Constant font size
+                    text_lines, _ = split_text(self.current_style.text_size)
 
-            self._text_lines = text_lines
-            relative_font_size = font_size
+                    self._text_lines = text_lines
+                    relative_font_size = self.current_style.text_size
+                else:
+                    font_size, text_lines = get_optimised_font_size_and_lines()
+
+                    self._text_lines = text_lines
+                    relative_font_size = font_size
+            else:
+                # Make the font size be constrained to the number range
+                font_size, text_lines = get_optimised_font_size_and_lines()
+                relative_font_size = self.current_style.text_size.constrain(
+                    font_size)
+
+                self._text_lines = text_lines
         else:
             # Adjust font size
-            if not isinstance(self.default_style.text_size, NumberRange):
-                if not self.default_style.text_scaled:
+            if not isinstance(self.current_style.text_size, NumberRange):
+                if not self.current_style.text_scaled:
                     # Constant font size
-                    relative_font_size = self.default_style.text_size
+                    relative_font_size = self.current_style.text_size
                 else:
 
                     # ================# Local Functions #================ #
@@ -135,8 +155,8 @@ class Label(Widget):
                     relative_font_size = get_optimized_font_size()
             else:
                 # Make the font size be constrained to the number range
-                fit_value: int = self.default_style.text_size.max_value or self.default_style.text_size.min_value
-                relative_font_size = int(self.default_style.text_size.constrain(
+                fit_value: int = self.current_style.text_size.max_value or self.current_style.text_size.min_value
+                relative_font_size = int(self.current_style.text_size.constrain(
                     fit_value * config.scaling_factor))
 
         self.current_style.text_size = relative_font_size
@@ -155,7 +175,6 @@ class Label(Widget):
 
                 surface.blit(
                     text_surface, self.raw_position + Vector2(0, i * self.current_style.text_size))
-
         else:
             text_surface: Surface = font.render(
                 self.current_style.text, True, self.current_style.text_color)

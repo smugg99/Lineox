@@ -1,15 +1,16 @@
-import pygame
-import config
 import copy
+from typing import Callable, Dict, List, Optional, Union
 
-from config import FontsEnum
-from pygame import Vector2, Color, Surface, Rect
+import pygame
+from pygame import Color, Rect, Surface, Vector2
 from pygame.event import Event
 from pygame.font import Font, SysFont
-from typing import Dict, Callable, List, Optional, Union
-from classes.number_range import NumberRange
-from classes.udim import UDim
-from classes.label import Label, LabelStyle
+
+import config
+from classes.datatypes.number_range import NumberRange
+from classes.datatypes.udim import UDim
+from classes.widgets.label import Label, LabelStyle
+from config import FontsEnum
 
 
 # ================# Classes #================ #

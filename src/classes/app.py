@@ -1,11 +1,12 @@
-import pygame
-import config
-
-from pygame.time import Clock
-from pygame.surface import Surface
-from pygame import Vector2
 from typing import List, Optional
-from layout import Interface
+
+import pygame
+from pygame import Vector2
+from pygame.surface import Surface
+from pygame.time import Clock
+
+import config
+from classes.interface import Interface
 
 
 # ================# Classes #================ #
