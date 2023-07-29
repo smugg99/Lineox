@@ -17,9 +17,24 @@ from config import FontsEnum
 
 
 class ButtonStyle(LabelStyle):
-    def __init__(self, text: str, text_color: Color, text_font: Optional[FontsEnum] = FontsEnum.DEFAULT, text_size: Optional[Union[int, NumberRange]] = 16, text_scaled: Optional[bool] = False, background_color: Optional[Color] = Color(0, 0, 0, 255)):
-        super().__init__(text, text_color, text_font,
-                         text_size, text_scaled, False, background_color)
+    def __init__(
+        self,
+        text: str,
+        text_color: Color,
+        text_font: Optional[FontsEnum] = FontsEnum.DEFAULT,
+        text_size: Optional[Union[int, NumberRange]] = 16,
+        text_scaled: Optional[bool] = False,
+        background_color: Optional[Color] = Color(0, 0, 0, 255)
+    ):
+        super().__init__(
+            text=text,
+            text_color=text_color,
+            text_font=text_font,
+            text_size=text_size,
+            text_scaled=text_scaled,
+            text_wrapped=False,
+            background_color=background_color
+        )
 
 
 class Button(Label):

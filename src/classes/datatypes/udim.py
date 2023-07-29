@@ -9,10 +9,19 @@ import config
 
 
 class UDim:
-    def __init__(self, scale: Vector2, offset: Optional[Vector2] = Vector2(0, 0)):
+    def __init__(
+        self,
+        scale: Vector2,
+        offset: Optional[Vector2] = Vector2(0, 0),
+        relative_to: Optional[Vector2] = None
+    ):
+
         self._scale: Vector2 = scale
         self._offset: Vector2 = offset
         self._calc: Vector2 = None
+
+        # This might be the size of the parent container, or just the screen
+        self._relative_to: Vector2 = relative_to
 
     @property
     def scale(self) -> Vector2:
@@ -34,8 +43,8 @@ class UDim:
 
     @property
     def calc(self) -> Vector2:
-        return (Vector2(config.display_resolution.x * self._scale.x,
-                        config.display_resolution.y * self._scale.y)) + self._offset
+        return (Vector2((self._relative_to or config.display_resolution).x * self._scale.x,
+                        (self._relative_to or config.display_resolution).y * self._scale.y)) + self._offset
 
     def __repr__(self):
         return f"UDim(scale=Vector2({self._scale.x}, {self._scale.y}), offset=Vector2({self._offset.x}, {self._offset.y})), Vector2({self.calc.x}, {self.calc.y})"

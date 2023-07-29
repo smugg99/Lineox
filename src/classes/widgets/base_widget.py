@@ -22,7 +22,13 @@ class FontsEnum(Enum):
 
 
 class BaseWidget:
-    def __init__(self, position: UDim, size: UDim, anchor: Vector2 = Vector2(0, 0)):
+    def __init__(
+        self,
+        position: UDim,
+        size: UDim,
+        anchor: Vector2 = Vector2(0, 0)
+    ):
+
         self.position: UDim = position
 
         self.size: UDim = size

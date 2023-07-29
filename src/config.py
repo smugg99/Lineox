@@ -4,6 +4,7 @@ from pygame import Vector2
 
 # ================# Enums #================ #
 
+
 class FontsEnum(Enum):
     DEFAULT: str = "fonts/Ubuntu-R.ttf"
     VT323: str = "fonts/VT323-Regular.ttf"
@@ -24,6 +25,10 @@ max_display_resolution: Vector2 = Vector2(960, 1280)
 
 global max_fps
 max_fps = 60
+
+global min_text_size, default_text_size
+min_text_size: int = 1
+default_text_size: int = 16
 
 # ================# Functions #================ #
 

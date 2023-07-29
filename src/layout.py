@@ -32,8 +32,8 @@ description_style: LabelStyle = LabelStyle("Lorem ipsum dolor sit amet, consecte
 description_style1: LabelStyle = LabelStyle("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed tincidunt,\nipsum eu posuere pulvinar, tortor ex varius odio,\nvitae varius purus eros a urna.", Color(
     255, 0, 0), text_wrapped=True, text_font=FontsEnum.DEFAULT.value, text_scaled=False, text_size=8, background_color=Color(255, 255, 255))
 
-description_style2: LabelStyle = LabelStyle("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed tincidunt, ipsum eu posuere pulvinar, tortor ex varius odio, vitae varius purus eros a urna.", Color(
-    255, 0, 0), text_wrapped=True, text_font=FontsEnum.DEFAULT.value, text_scaled=False, text_size=NumberRange(2, 32), background_color=Color(255, 255, 255))
+description_style2: LabelStyle = LabelStyle("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed tincidunt, ipsum eu posuere pulvinar.", Color(
+    255, 0, 0), text_wrapped=True, text_font=FontsEnum.DEFAULT.value, text_scaled=False, text_size=NumberRange(8, 16), background_color=Color(255, 255, 255))
 
 
 description_label1: Label = Label(UDim.from_scale(0.5, 0.3), UDim.from_scale(
